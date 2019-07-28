@@ -4,21 +4,19 @@ const Discord = require("discord.js");
 const client = new Discord.Client
 var prefix = "#";
 
+client.on("message", message => {
 
-client.on('message', async(message) => {
-		    var prefix = "#";
-    if(message.author.julian || message.channel.type == 'dm') return;
-    let args = message.content.split(' ');
-    if(args[0] == `${prefix}bc`){
-        if(!message.member.hasPermission('MANAGE_GUILD')) return;
-        if(!args[1]) return message.channel.send(`**Usage:** ${prefix}bc [message]`);
-        message.guild.members.map((m) => {
-            setTimeout(() => {
-                m.send(args.slice(1).join(' ').replace('[user]', m).replace('[server]', message.guild.name)).catch(e => undefined);
-            }, 550);
-        });
-    }
+            if (message.content.startsWith(prefix + "bc")) {
+                         if (!message.member.hasPermission("ADMINISTRATOR"))  return;
+  let args = message.content.split(".").slice(1);
+  var argresult = args.join('.'); 
+  message.guild.members.filter(m => m.presence.status !== 'offline').forEach(m => {
+ m.send(`${argresult}\n ${m}`);
 })
+ message.channel.send(`\`${message.guild.members.filter(m => m.presence.status !== 'online').size}\` : عدد الاعضاء المستلمين`); 
+ message.delete(); 
+};     
+});
 
 
 
@@ -75,8 +73,8 @@ if(message.content.startsWith('#' + "daily")) {
 
   if(profile[message.author.id].lastDaily != moment().format('day')) {
    profile[message.author.id].lastDaily = moment().format('day')
-   profile[message.author.id].credits += 1000000
-    message.channel.send(`:atm: |**${message.author.username} you collect your \`1000000\` :yen: daily credits!**`)
+   profile[message.author.id].credits += 310
+    message.channel.send(`:atm: |**${message.author.username} you collect your \`310\` :yen: daily credits!**`)
 } else {
     message.channel.send(`**:stopwatch: | ${message.author.username}, your daily :yen: credits refreshes ${moment().endOf('day').fromNow()}**`)
 }
@@ -106,8 +104,8 @@ if (!profile[sender.id].credits) profile[sender.id].credits = 310;
 fs.writeFile('./profile.json', JSON.stringify(profile), (err) => {
 if (err) console.error(err);
 })
-var x = ['5764'];
-var x2 = ['5764'];
+var x = ['1111'];
+var x2 = ['1111'];
         var x3 = Math.floor(Math.random()*x.length)
        message.channel.send(`** :moneybag: |**  \`${x[x3]}\` ** :  type these numbers to confirm **`).then(msg1=> {
         var r = message.channel.awaitMessages(msg => msg.content == x2[x3], { maxMatches : 1, time : 600000, errors : ['time'] })
@@ -142,4 +140,4 @@ mentionned.send(`:atm: | Transfer Receipt \`\`\`You have received $ ${args[0]} f
 
 
 
-client.login(process.env.BOT_TOKEN);  //لا تحط التوكن حقك هنا
+client.login("NjA0OTk4MjkwNzczMzc3MDM0.XT2LTQ.vGqbVjVXhGKexkE9PGUbokHxlU4");////// التوكن ////
